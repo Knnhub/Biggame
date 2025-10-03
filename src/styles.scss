@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+:root { --primary:#5b8cff; --bg:#0f1320; --card:#161b2e; --text:#f3f5ff; --muted:#aab1d1; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: Inter, system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, #0b0f1d, #10152a); }
+a { color: var(--primary); text-decoration: none; }
+.topbar { display:flex; align-items:center; gap:16px; padding:12px 20px; background:#0c1020; border-bottom:1px solid #1e2340; position: sticky; top:0; }
+.topbar .brand { font-weight:700; letter-spacing:.5px; }
+.topbar .spacer { flex:1; }
+.page { padding: 24px; }
+.card { background: var(--card); padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.card h2 { margin: 0 0 12px; }
+label { display:block; margin: 12px 0 6px; }
+input { width:100%; padding:12px; border-radius:12px; border:1px solid #2a3259; background:#0f1430; color:var(--text); }
+button { margin-top:16px; width:100%; padding:12px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:600; cursor:pointer; }
+button[disabled] { opacity:.6; cursor:not-allowed; }
+.muted { color: var(--muted); font-size: 14px; }

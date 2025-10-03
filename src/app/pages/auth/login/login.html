@@ -1,0 +1,15 @@
+<section class="card">
+<h2>Login</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+<label>Email</label>
+<input type="email" formControlName="email" placeholder="you@example.com" />
+
+
+<label>Password</label>
+<input type="password" formControlName="password" />
+
+
+<button [disabled]="loading || form.invalid" type="submit">เข้าสู่ระบบ</button>
+<p class="muted">ยังไม่มีบัญชี? <a routerLink="/register">สมัครสมาชิก</a></p>
+</form>
+</section>
