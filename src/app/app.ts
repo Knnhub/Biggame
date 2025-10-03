@@ -7,15 +7,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   template: `
-    <nav class="topbar">
-      <a routerLink="/" class="brand">BigGame</a>
-      <span class="spacer"></span>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    </nav>
-    <main class="page">
-      <router-outlet></router-outlet>
-    </main>
+    <router-outlet></router-outlet>
   `
 })
 export class App {}

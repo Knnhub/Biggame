@@ -1,15 +1,20 @@
-<section class="card">
-<h2>Login</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
-<label>Email</label>
-<input type="email" formControlName="email" placeholder="you@example.com" />
+<section class="login-page">
+  <div class="card">
+    <h1 class="brand">BIGgame</h1>
 
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="Value" />
 
-<label>Password</label>
-<input type="password" formControlName="password" />
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Value" />
 
+      <button class="btn" [disabled]="loading || form.invalid" type="submit">Login</button>
 
-<button [disabled]="loading || form.invalid" type="submit">เข้าสู่ระบบ</button>
-<p class="muted">ยังไม่มีบัญชี? <a routerLink="/register">สมัครสมาชิก</a></p>
-</form>
+      <p class="signup">
+        <span>Not a member yet?</span>
+        <a href="/register">Register</a>
+      </p>
+    </form>
+  </div>
 </section>
