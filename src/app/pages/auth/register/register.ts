@@ -19,10 +19,9 @@ export class Register {
   avatarPreview: string | null = null;
 
   form = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirm: ['', [Validators.required]],
+    username: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required]],
     avatar: [null as File | null] // optional
   });
 
@@ -37,18 +36,23 @@ export class Register {
 
   loading = false;
 
-  submit() {
+
+  async submit() {
     if (this.form.invalid) return;
-    if (this.form.value.password !== this.form.value.confirm) {
-      this.form.get('confirm')?.setErrors({ mismatch: true });
-      return;
-    }
+
     this.loading = true;
     const { username, email, password } = this.form.value as any;
-    const res = this.auth.register({ username, email, password });
+    const res = await this.auth.register({ username, email, password });
     this.loading = false;
-    if (!res.ok) { alert(res.message); return; }
-    alert('Registered! Now please login.');
+
+    if (!res.ok) {
+      alert(res.message); // ❌ สมัครไม่สำเร็จ
+      return;
+    }
+
+    // ✅ สมัครสำเร็จ
+    alert('Registered! Please login.');
     this.router.navigateByUrl('/login');
   }
+
 }

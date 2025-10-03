@@ -55,7 +55,7 @@
 }
 
 /* ฟอร์ม */
-.form { width: 360px; max-width: 100%; margin: 0 auto; }
+// .form { width: 360px; max-width: 100%; margin: 0 auto; }
 label {
   display: block;
   margin: 10px 0 6px;
@@ -76,14 +76,8 @@ input {
 input + label { margin-top: 14px; }
 
 /* ปุ่ม */
-.btn {
-  display: flex; justify-content: center; align-items: center;
-  width: 298px; height: 40px; margin: 20px auto 0;
-  background: #2C2C2C; color: #F5F5F5;
-  border: 1px solid #2C2C2C; border-radius: 8px;
-  font-size: 16px; cursor: pointer;
-  &:disabled { opacity: .6; cursor: not-allowed; }
-}
+.form { position: relative; z-index: 2; }
+.btn { position: relative; z-index: 3; }
 
 /* ลิงก์ไป login */
 .login-link {

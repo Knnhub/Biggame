@@ -24,12 +24,23 @@ export class Login {
 
   loading = false;
 
-  submit() {
-    if (this.form.invalid) return;
-    this.loading = true;
-    const res = this.auth.login(this.form.value as any);
-    this.loading = false;
-    if (!res.ok) { alert(res.message); return; }
+  async submit() {
+  if (this.form.invalid) return;
+
+  this.loading = true;
+  const res = await this.auth.login(this.form.value as any);
+  this.loading = false;
+  
+  if (!res.ok) { alert(res.message); return; }
     this.router.navigateByUrl('/');
+
+  if (!res.ok) {
+    alert(res.message); // ❌ ไม่สำเร็จ แจ้ง error
+    return;
+  }
+
+  // ✅ สำเร็จ
+  alert(`Welcome Login Success!`);
+  this.router.navigateByUrl('/dashboard'); // หรือไปหน้าอื่นที่คุณกำหนด  
   }
 }

@@ -1,64 +1,74 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../envirolments/environment';
+
 
 export interface LoginDto { email: string; password: string; }
 export interface RegisterDto { username: string; email: string; password: string; }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private LS_USERS = 'biggame_users';
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
   private LS_TOKEN = 'biggame_token';
   private LS_ME = 'biggame_me';
 
-  constructor(private router: Router) {}
 
-  private readUsers(): any[] {
-    return JSON.parse(localStorage.getItem(this.LS_USERS) || '[]');
-  }
-  private writeUsers(users: any[]) {
-    localStorage.setItem(this.LS_USERS, JSON.stringify(users));
-  }
+    async register(dto: { username: string; email: string; password: string; }): Promise<{ok:boolean; message?:string}> {
+    // สร้าง uid ง่าย ๆ ฝั่ง client (ตาม backend ต้องการ)
+    const uid = 'U' + Math.floor(1000 + Math.random() * 9000).toString(); // เช่น U1234
 
-  register(dto: RegisterDto): { ok: boolean; message?: string } {
-    const users = this.readUsers();
-    const exists = users.some((u: any) => u.email.toLowerCase() === dto.email.toLowerCase());
-    if (exists) return { ok: false, message: 'อีเมลนี้ถูกใช้แล้ว' };
-
-    const user = {
-      id: crypto.randomUUID(),
-      username: dto.username.trim(),
-      email: dto.email.toLowerCase().trim(),
-      passwordHash: btoa(dto.password), // เดโมเท่านั้น
-      createdAt: new Date().toISOString(),
+    const body = {
+      uid,
+      full_name: dto.username.trim(),
+      email: dto.email.trim().toLowerCase(),
+      password: dto.password,
+      role: 'user'
     };
-    users.push(user);
-    this.writeUsers(users);
-    return { ok: true };
+
+    try {
+      await this.http.post(`${environment.apiBase}/register`, body).toPromise();
+      return { ok: true, message: 'Registered successfully' };
+    } catch (err: any) {
+      // backend คืนข้อความ error ผ่าน { "error": "..."} หรือเป็น text
+      const msg =
+        err?.error?.error ||
+        err?.error?.message ||
+        (typeof err?.error === 'string' ? err.error : null) ||
+        'register failed';
+      return { ok: false, message: msg };
+    }
   }
 
-  login(dto: LoginDto): { ok: boolean; message?: string } {
-    const users = this.readUsers();
-    const u = users.find((x: any) => x.email.toLowerCase() === dto.email.toLowerCase());
-    if (!u) return { ok: false, message: 'ไม่พบบัญชีผู้ใช้' };
-    if (u.passwordHash !== btoa(dto.password)) return { ok: false, message: 'รหัสผ่านไม่ถูกต้อง' };
 
-    const token = crypto.randomUUID();
-    localStorage.setItem(this.LS_TOKEN, token);
-    localStorage.setItem(this.LS_ME, JSON.stringify({ id: u.id, username: u.username, email: u.email }));
-    return { ok: true };
+  async login(dto: LoginDto): Promise<{ok:boolean; message?:string; user?:any}> {
+  try {
+    const res: any = await this.http.post(`${environment.apiBase}/login`, dto).toPromise();
+    localStorage.setItem(this.LS_TOKEN, res.token);
+    localStorage.setItem(this.LS_ME, JSON.stringify(res.user));
+    return { ok: true, user: res.user };
+  } catch (err: any) {
+    const msg = err?.error?.error || 'login failed';
+    return { ok: false, message: msg };
   }
+}
+
 
   logout() {
     localStorage.removeItem(this.LS_TOKEN);
     localStorage.removeItem(this.LS_ME);
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.LS_TOKEN);
   }
-
-  me(): { id: string; username: string; email: string } | null {
+  token(): string | null {
+    return localStorage.getItem(this.LS_TOKEN);
+  }
+  me(): { id:string; username:string; email:string } | null {
     const raw = localStorage.getItem(this.LS_ME);
     return raw ? JSON.parse(raw) : null;
   }
