@@ -4,26 +4,27 @@
   height: 100vh;
 }
 .login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
   background: #FEF7FF;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #1E1E1E;
 }
 
 
 /* กล่องการ์ด */
 .card {
-  width: 905px;         /* ตามสเปกภาพ */
+  width: 460px;
   max-width: 92vw;
-  height: 680px;        /* ตามสเปกภาพ */
   background: #fff;
-  border: 1px solid #000;          /* เส้นขอบดำ */
-  border-radius: 36px;             /* มนแบบภาพ */
-  box-shadow: 0 4px 8px rgba(0,0,0,.25); /* เงา */
-  position: relative;   /* เพื่อวางเนื้อหาภายในได้สบาย */
-  padding: 40px 56px;
+  border: 1px solid #000;
+  border-radius: 28px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.25);
+  padding: 28px 28px 22px;
   box-sizing: border-box;
+  position: relative;
 }
 
 /* หัว BIGgame */

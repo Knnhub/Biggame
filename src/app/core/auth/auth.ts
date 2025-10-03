@@ -17,12 +17,10 @@ export class AuthService {
 
 
     async register(dto: { username: string; email: string; password: string; }): Promise<{ok:boolean; message?:string}> {
-    // สร้าง uid ง่าย ๆ ฝั่ง client (ตาม backend ต้องการ)
-    const uid = 'U' + Math.floor(1000 + Math.random() * 9000).toString(); // เช่น U1234
 
     const body = {
-      uid,
-      full_name: dto.username.trim(),
+      
+      username: dto.username.trim(),
       email: dto.email.trim().toLowerCase(),
       password: dto.password,
       role: 'user'
@@ -49,11 +47,11 @@ export class AuthService {
     localStorage.setItem(this.LS_TOKEN, res.token);
     localStorage.setItem(this.LS_ME, JSON.stringify(res.user));
     return { ok: true, user: res.user };
-  } catch (err: any) {
-    const msg = err?.error?.error || 'login failed';
-    return { ok: false, message: msg };
+   } catch (err: any) {
+     const msg = err?.error?.error || 'login failed';
+     return { ok: false, message: msg };
+    }
   }
-}
 
 
   logout() {
