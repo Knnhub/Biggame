@@ -5,7 +5,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { Adminhome } from './pages/admin/adminhome/adminhome';
 import { Userhome } from './pages/user/userhome/userhome';
 import { Profile } from './pages/user/profile/profile';
-import { EditProfile } from './pages/user/edit-profile/edit-profile';
+import {EditProfile } from './pages/user/edit-profile/edit-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
