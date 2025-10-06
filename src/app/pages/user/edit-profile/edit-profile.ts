@@ -4,21 +4,33 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs'; // ✅ Import firstValueFrom
 import { AuthService } from '../../../core/auth/auth';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../envirolments/environment';
+
 
 
 @Component({
   standalone: true,
   selector: 'app-edit-profile',
-  imports: [CommonModule, ReactiveFormsModule],
-  template: './edit-profile.html',
+  imports: [CommonModule, ReactiveFormsModule,CommonModule],
+  templateUrl: './edit-profile.html',
   styleUrls: ['./edit-profile.scss']
 })
 export class EditProfile implements OnInit {
   // ✅ ต้องเพิ่ม apiBase เข้ามา เพื่อให้เรียก backend ได้
   // เปลี่ยนเป็น URL ของ Railway/backend ของคุณ
   // apiBase = 'http://localhost:8080'; // หรือ 'https://your-railway-backend-url.com'; 
+  // คืน URL สำหรับรูปโปรไฟล์: ใช้รูป preview ก่อน > imageUser จากฟอร์ม > null
+public avatarImg(): string | null {
+  return this.previewURL() || this.form.value.imageUser || null;
+}
+
+// ให้ input[type=file] เรียกชื่อเดียวกับใน HTML แล้วส่งต่อไปใช้ของเดิม
+public onAvatarChange(e: Event): void {
+  this.onFile(e); // ใช้เมธอด onFile เดิมของคุณ
+}
+
+
 
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
@@ -40,10 +52,20 @@ export class EditProfile implements OnInit {
   loading = signal(false);
  
 
-  constructor() {}
+ constructor(private route: ActivatedRoute, private authService: AuthService) { }
+  //  async ngOnInit() {
+  //   this.uid = this.route.snapshot.paramMap.get('uid');
+  //   console.log('Profile UID:', this.uid);
 
+  //   if (this.uid) {
+  //     this.user = await this.authService.getUserByUid(this.uid);
+  //     console.log('Fetched user:', this.user);
+  //   }
+  // }
   // ✅ เรียก loadProfile() ทันทีที่ Component เริ่มทำงาน
   ngOnInit(): void {
+    this.uid = this.route.snapshot.paramMap.get('uid');
+    console.log('Profile UID:', this.uid);
     if (this.uid) {
       this.loadProfile();
     } else {
@@ -111,7 +133,8 @@ export class EditProfile implements OnInit {
 
       console.log('Updated:', res);
       this.message.set('บันทึกสำเร็จ ✅');
-      
+      this.router.navigate(['/profile', res.uid]);
+
       // อัพเดทรูปใหม่และเคลียร์ preview
       if (res.imageUser) this.form.patchValue({ imageUser: res.imageUser });
       this.previewURL.set(null);

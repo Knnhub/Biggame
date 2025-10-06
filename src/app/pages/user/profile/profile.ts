@@ -3,10 +3,14 @@ import { Navbar } from "../navbar/navbar";
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoginResponse } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/auth/auth';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-profile',
-  imports: [Navbar, RouterModule],
+  imports: [Navbar, RouterModule,CommonModule, HttpClientModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
