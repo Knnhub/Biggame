@@ -24,8 +24,13 @@ export const routes: Routes = [
 
   { path: 'userhome/:uid', component: Userhome, canActivate: [authGuard] },
   { path: 'profile/:uid', component: Profile, canActivate: [authGuard] },
+
   { path: 'editprofile/:uid', component: EditProfile, canActivate: [authGuard] },
   { path: 'game-detail/:uid', component: GameDetail, canActivate: [authGuard] },
+
+    { path: 'editprofile/:uid', component: EditProfile, canActivate: [authGuard] },
+
+
 
   { path: '**', redirectTo: '' },
 

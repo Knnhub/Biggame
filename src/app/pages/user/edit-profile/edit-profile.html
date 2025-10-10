@@ -1,3 +1,50 @@
-<app-navbar></app-navbar>
+<section class="edit-profile-page">
+  <div class="card">
+    <!-- Avatar uploader -->
+    <label class="avatar-uploader" for="avatarInput" title="Upload avatar" tabindex="0">
+      <ng-container *ngIf="!avatarImg(); else preview">
+        <svg width="64" height="64" viewBox="0 0 24 24" class="icon" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="14" rx="2" ry="2" fill="none" stroke="#111" stroke-width="1.5" />
+          <circle cx="9" cy="8" r="2" fill="none" stroke="#111" stroke-width="1.5" />
+          <path d="M21 16l-5-5-6 6" fill="none" stroke="#111" stroke-width="1.5" />
+        </svg>
+        <span class="plus">+</span>
+      </ng-container>
+      <ng-template #preview>
+        <img [src]="avatarImg()!" alt="avatar" />
+      </ng-template>
+    </label>
+    <input id="avatarInput" type="file" accept="image/*" (change)="onAvatarChange($event)" hidden />
 
-<p>edit-profile works!</p>
+    <!-- SINGLE form (เปิดที่นี่และปิดที่ท้ายเดียวเท่านั้น) -->
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Name -->
+      <label for="name">Name</label>
+      <input id="name" 
+       type="text" 
+       formControlName="full_name" 
+       placeholder="Your name"
+       style="color: #000; background-color: #fff;" />
+      <div *ngIf="form.get('full_name')?.touched && form.get('full_name')?.invalid" class="error">
+        Name is required (min 2 chars)
+      </div>
+
+   
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn secondary" type="button" (click)="reset()" >Reset</button>
+        <button class="btn primary" type="submit" >
+          {{ loading() ? 'Saving…' : 'Save Changes' }}
+        </button>
+      </div>
+
+      <!-- Feedback -->
+      <p class="feedback"
+         [ngClass]="{ 'ok': message().includes('สำเร็จ'), 'err': message().includes('ไม่สำเร็จ') }"
+         *ngIf="message()">
+        {{ message() }}
+      </p>
+    </form>
+    <!-- ปิด form ที่นี่เพียงจุดเดียว -->
+  </div>
+</section>

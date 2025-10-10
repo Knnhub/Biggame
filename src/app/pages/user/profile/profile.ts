@@ -2,15 +2,25 @@ import { Component } from '@angular/core';
 import { Navbar } from "../navbar/navbar";
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoginResponse } from '../../../core/models/user.model';
+<<<<<<< HEAD
 import { AuthService , Wallet} from '../../../core/auth/auth';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+=======
+import { AuthService } from '../../../core/auth/auth';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+>>>>>>> 5dd40b7340fa7ef85a4833478de0aa24136902b8
 
 
 
 @Component({
   selector: 'app-profile',
+<<<<<<< HEAD
   imports: [Navbar, RouterModule, CommonModule, FormsModule],
+=======
+  imports: [Navbar, RouterModule,CommonModule, HttpClientModule],
+>>>>>>> 5dd40b7340fa7ef85a4833478de0aa24136902b8
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })

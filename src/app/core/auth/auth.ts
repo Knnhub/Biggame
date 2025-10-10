@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../envirolments/environment';
 import { LoginResponse } from '../models/user.model';
@@ -142,6 +142,7 @@ export class AuthService {
       return null;
     }
   }
+<<<<<<< HEAD
   async getGames(): Promise<Getgame[]> {
     try {
       // เรียก GET request ไปยัง endpoint /games และคาดหวังผลลัพธ์เป็น Array ของ Game
@@ -216,5 +217,9 @@ export class AuthService {
     const url = `${environment.apiBase}/game?id=${id}`;
     return await firstValueFrom(this.http.get<Game>(url));
   }
+=======
+
+
+>>>>>>> 5dd40b7340fa7ef85a4833478de0aa24136902b8
 
 }
