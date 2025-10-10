@@ -1,2 +1,43 @@
 <app-navbar></app-navbar>
-home
+
+<main class="userhome-container">
+  <h2 class="page-title">🎮 รายการเกมทั้งหมดในร้านค้า</h2>
+
+  <div *ngIf="loading" class="status-message">
+    <p>กำลังโหลดข้อมูลเกม...</p>
+  </div>
+
+  <div *ngIf="error" class="status-message error">
+    <p>เกิดข้อผิดพลาด: {{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error">
+
+    <div *ngIf="games && games.length > 0" class="game-grid">
+      
+  <a *ngFor="let game of games" [routerLink]="['/game', game.game_id]" class="game-card-link">
+    <div class="game-card">
+      
+      <div class="game-image-container">
+        <img [src]="game.image || 'assets/default-game-image.png'" [alt]="game.game_name" class="game-image">
+      </div>
+
+      <div class="game-card-body">
+        <h3 class="game-title">{{ game.game_name }}</h3>
+        <p class="game-description">{{ game.description || 'ไม่มีคำอธิบายสำหรับเกมนี้' }}</p>
+      </div>
+      
+      <div class="game-card-footer">
+        <span class="game-price">{{ game.price | number:'1.2-2' }} ฿</span>
+      </div>
+
+    </div>
+  </a>
+</div>
+
+    <div *ngIf="games && games.length === 0" class="status-message">
+      <p>😢 ไม่มีเกมในระบบในขณะนี้</p>
+    </div>
+
+  </div>
+</main>

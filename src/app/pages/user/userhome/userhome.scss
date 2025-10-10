@@ -1,0 +1,114 @@
+/* --- การตั้งค่าตัวแปรหลักสำหรับธีม --- */
+:host {
+  --page-bg: #f4f7f9;
+  --card-bg: #ffffff;
+  --primary-text: #2c3e50;
+  --secondary-text: #7f8c8d;
+  --price-color: #007bff;
+  --shadow-color: rgba(44, 62, 80, 0.1);
+  --shadow-hover-color: rgba(44, 62, 80, 0.15);
+}
+
+/* --- Layout หลักของหน้า --- */
+.userhome-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.page-title {
+  text-align: center;
+  color: var(--primary-text);
+  margin-bottom: 2rem;
+}
+
+/* --- ข้อความสถานะ (Loading, Error, Empty) --- */
+.status-message {
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.2em;
+  color: var(--secondary-text);
+
+  &.error {
+    color: #e74c3c;
+    background-color: #fbeae5;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+}
+
+/* --- Grid สำหรับจัดเรียงการ์ด --- */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- สไตล์ของการ์ดแต่ละใบ --- */
+.game-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px var(--shadow-hover-color);
+  }
+}
+
+.game-image-container {
+  height: 160px;
+  background-color: #ecf0f1; // สีพื้นหลังเผื่อรูปโหลดช้า
+}
+
+.game-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // ทำให้รูปเต็มกรอบโดยไม่เสียสัดส่วน
+  display: block;
+}
+
+.game-card-body {
+  padding: 1rem;
+  flex-grow: 1; // ทำให้ส่วน body ยืดเพื่อดัน footer ไปอยู่ล่างสุด
+}
+
+.game-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.game-description {
+  font-size: 0.9em;
+  color: var(--secondary-text);
+  // ทำให้ข้อความที่ยาวเกินไปแสดง ...
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.game-card-footer {
+  padding: 0 1rem 1rem 1rem;
+  margin-top: auto; // ดัน footer ให้อยู่ล่างสุดเสมอ
+  text-align: right;
+}
+
+.game-price {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--price-color);
+}
+
+// userhome.component.scss
+.game-card-link {
+  text-decoration: none; // เอาขีดเส้นใต้ของลิงก์ออก
+  color: inherit; // ทำให้สีตัวอักษรเป็นสีปกติ
+}

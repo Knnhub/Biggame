@@ -35,7 +35,8 @@
             <div class="dropdown-content right">
                 <!-- ส่ง uid ผ่าน path parameter -->
                 <a [routerLink]="['/profile', me?.uid]">Profile</a>
-                <a href="#">My Wallet</a>
+                <!-- <a [routerLink]="['/edit-profile', me?.uid]">Edit Profile</a> -->
+                <!-- <a href="#">My Wallet</a> -->
                 <a href="#">Library</a>
                 <!-- เปลี่ยนจาก <a href="/">Logout</a> -->
                 <a href="#" (click)="logout()">Logout</a>

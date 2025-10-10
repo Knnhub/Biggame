@@ -1,0 +1,250 @@
+/* --- การตั้งค่าตัวแปรหลัก --- */
+@use "sass:color";
+:host {
+  --banner-bg: #1A9FFF;
+  --card-bg: #ffffff;
+  --primary-text: #000000;
+  --button-bg: #114D78;
+  --button-text: #ffffff;
+  --font-family: 'Inter', sans-serif;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+}
+
+/* --- Layout หลักของหน้า --- */
+.profile-page {
+  max-width: 950px;
+  margin: 2rem auto;
+  font-family: var(--font-family);
+}
+
+.profile-container {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* --- ส่วน Banner โปรไฟล์ --- */
+.profile-banner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--banner-bg);
+  border: 1px solid var(--banner-bg);
+  box-shadow: 0px 4px 4px var(--shadow-color);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  color: var(--primary-text);
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+.profile-info .profile-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-info .profile-email {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0.25rem 0 1rem 0;
+}
+
+.edit-profile-button {
+  display: inline-block;
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0px 4px 4px var(--shadow-color);
+  transition: background-color 0.2s;
+}
+
+.edit-profile-button:hover {
+  background-color: #0c3652; /* สีเข้มขึ้นเล็กน้อย */
+}
+
+/* --- การ์ด Wallet ที่แยกออกมา --- */
+.wallet-card {
+  width: 280px;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 4px var(--shadow-color);
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.wallet-card .wallet-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.wallet-card .wallet-balance {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000; /* เปลี่ยนเป็นสีดำ */
+  margin-bottom: 1.5rem;
+}
+
+.wallet-card .add-funds-button {
+  width: 100%;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.wallet-card .add-funds-button:hover {
+  background-color: #0c3652; /* สีเข้มขึ้นเล็กน้อย */
+}
+
+/* --- ส่วน Library (Placeholder) --- */
+.library-section {
+  margin-top: 3rem;
+}
+
+.library-section .library-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.library-section .game-grid-placeholder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.library-section .game-grid-placeholder .game-placeholder {
+  height: 140px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+
+/* --- สไตล์สำหรับ Modal เติมเงิน --- */
+
+.modal-overlay {
+  position: fixed; /* ทำให้เต็มจอและอยู่ทับเนื้อหาอื่น */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* พื้นหลังสีดำโปร่งแสง */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* ทำให้แสดงอยู่ชั้นบนสุด */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.amount-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+//   color: #333;
+
+  button {
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #333;
+
+
+    &:hover {
+      border-color: #007bff;
+      background-color: #e9f5ff;
+    }
+
+    &.selected {
+      border-color: #007bff;
+      background-color: #007bff;
+      color: white;
+    }
+  }
+}
+
+.custom-amount-label {
+  text-align: center;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.custom-amount-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box; /* ป้องกันไม่ให้ padding ทำให้ขนาดเกิน */
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+
+  button {
+    flex: 1; /* ทำให้ปุ่มขยายเต็มพื้นที่เท่าๆ กัน */
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .btn-cancel {
+    background-color: #e0e0e0;
+    color: #333;
+    &:hover {
+      background-color: #d0d0d0;
+    }
+  }
+
+  .btn-confirm {
+    background-color: #28a745;
+    color: white;
+    &:hover {
+       background-color: color.adjust(#28a745, $lightness: -10%);
+    }
+  }
+}

@@ -17,6 +17,23 @@ export interface AddGameResponse {
   message: string;
   game_id: number;
 }
+export interface Game {
+  game_id: number;
+  game_name: string;
+  price: number;
+  image?: string;
+  description?: string;
+  release_date?: Date;
+  type_id?: number | null; // Accepts number, null, or undefined
+  // เพิ่ม field อื่นๆ ตามที่ API ส่งมา
+}
+
+export interface Wallet {
+  wid: number;
+  cash: number;
+  user_id: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
@@ -178,4 +195,26 @@ export class AuthService {
       return { ok: false, message: errorMessage };
     }
   }
+
+  async getWalletByUserID(uid: string): Promise<Wallet> {
+    const url = `${environment.apiBase}/wallet?user_id=${uid}`;
+    return await firstValueFrom(this.http.get<Wallet>(url));
+  }
+
+  async addFunds(uid: string, amount: number): Promise<any> {
+    const url = `${environment.apiBase}/wallet/add`;
+    const body = {
+      user_id: parseInt(uid, 10), // แปลง uid ที่เป็น string ให้เป็น number
+      amount: amount
+    };
+    // ยิง HTTP POST request พร้อมกับส่งข้อมูล body ไปด้วย
+    return await firstValueFrom(this.http.post(url, body));
+  }
+
+  // กดดูข้อมูลเกมเดียว
+  async getGameById(id: string): Promise<Game> {
+    const url = `${environment.apiBase}/game?id=${id}`;
+    return await firstValueFrom(this.http.get<Game>(url));
+  }
+
 }
